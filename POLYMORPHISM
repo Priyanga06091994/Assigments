@@ -1,0 +1,72 @@
+package week3.day1;
+
+public class Calculator {
+
+	public void addition(int a,int b)
+	{
+		int add = a+b;
+		System.out.println("Additin of a and b is : "+add);
+	}
+	public int addition(int a,int b,int c)
+	{
+		int add = a+b+c;
+		return add;
+	}
+	public void multiply(int a,int b)
+	{
+		int product = a*b;
+		System.out.println("Multiplication of a and b is : "+product);
+	}
+	public double multiply(int a,double b,double c)
+	{
+		double product = a*b*c;
+		return product;
+	}
+	public void subtract(int a,int b)
+	{
+		int sub = a-b;
+		System.out.println("Subraction of a and b is : "+sub);
+	}
+	public double subtract(double a,double b)
+	{
+		double sub = a-b;
+		return sub;
+	}
+	public void division(int a,int b)
+	{
+		int divide = a/b;
+		System.out.println("Division of a and b is : "+divide);
+	}
+	public double division(int a,double b)
+	{
+		double divide = a/b;
+		return divide;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Calculator cal = new Calculator();
+		cal.addition(5, 5);
+		cal.multiply(5, 3);
+		cal.subtract(10, 5);
+		cal.division(40, 2);
+		cal.addition(5, 2, 4);
+		cal.multiply(2, 33.33,44.44);
+		cal.subtract(44.44, 22.22);
+		cal.division(2, 40.40);
+		System.out.println("Addition of a,b and c is : "+cal.addition(5, 2, 4));
+		System.out.println("Multiplication of a,b and c is : "+cal.multiply(2, 33.33,44.44));
+		System.out.println("Subraction of a and b is : "+cal.subtract(44.44, 22.22));
+		System.out.println("Division of a and b is : "+cal.division(2, 40.40));
+	}
+}
+
+OUTPUT
+
+Additin of a and b is : 10
+Multiplication of a and b is : 15
+Subraction of a and b is : 5
+Division of a and b is : 20
+Addition of a,b and c is : 11
+Multiplication of a,b and c is : 2962.3704
+Subraction of a and b is : 22.22
+Division of a and b is : 0.04950495049504951
