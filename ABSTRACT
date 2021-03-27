@@ -1,0 +1,34 @@
+package week3.day1;
+
+public abstract class University {
+
+	public void pg()
+	{
+		System.out.println("My PG course is MBA");
+	}
+	public abstract void ug();
+}
+====================================================
+package week3.day1;
+
+public class College extends University{
+	
+	public void ug()
+	{
+		System.out.println("My UG course is B.E.");
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		College college = new College();
+		college.pg();
+		college.ug();
+	}
+
+}
+
+OUTPUT
+
+My PG course is MBA
+My UG course is B.E.
