@@ -1,0 +1,48 @@
+package week3.day1;
+
+public class BankInfo {
+
+	public void savingLimit()  
+	{
+		System.out.println("You can have minimum of 2 Lakhs in your saving account.");
+	}
+	public void fixedAmount() 
+	{
+		System.out.println("Your amount under fixed deposit needs to withdrawn before this month end.");
+	}
+	public void depositAmount() 
+	{
+
+		System.out.println("You can only deposit maximum of 5 Lakhs per day in HDFC bank.");
+	}
+}
+=============================================================================================================
+package week3.day1;
+
+public class AxisBank extends BankInfo {
+
+	public void depositAmount() 
+	{
+
+		System.out.println("You can only deposit maximum of 10 Lakhs per day in Axis bank.");
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		AxisBank bank = new AxisBank();
+		bank.fixedAmount();
+		bank.savingLimit();
+		bank.depositAmount();
+		BankInfo bankinfo = new BankInfo();
+		bankinfo.depositAmount();
+		
+	}
+
+}
+
+OUTPUT
+
+Your amount under fixed deposit needs to withdrawn before this month end.
+You can have minimum of 2 Lakhs in your saving account.
+You can only deposit maximum of 10 Lakhs per day in Axis bank.
+You can only deposit maximum of 5 Lakhs per day in HDFC bank.
