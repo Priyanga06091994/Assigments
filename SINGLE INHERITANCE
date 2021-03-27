@@ -1,0 +1,36 @@
+package org.system;
+
+public class Computer {
+
+	public void computerModel()
+	{
+		System.out.println("Computer Model  : HP EliteBook");
+	}
+}
+=========================================================================
+package org.system;
+
+public class Desktop extends Computer {
+
+	public void desktopSize() 
+	
+	{
+
+		System.out.println("Desktop Size: 14 Inch");
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+ Desktop desktop = new Desktop();
+ desktop.computerModel();
+ desktop.desktopSize();
+ 
+		
+	}
+
+}
+
+OUTPUT
+
+Computer Model  : HP EliteBook
+Desktop Size: 14 Inch
