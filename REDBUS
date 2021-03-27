@@ -1,0 +1,58 @@
+package week3.day1;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.cucumber.messages.internal.com.google.protobuf.Duration;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class RedBus{
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		driver.get("https://www.redbus.in/");
+		driver.findElement(By.xpath("//input[@id='src']")).sendKeys("c");
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//input[@id='src']")).sendKeys(Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ENTER);
+		driver.findElement(By.xpath("//input[@id='dest']")).sendKeys("b");
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//input[@id='dest']")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER,Keys.TAB);
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//tr[@class='rb-monthHeader']/td[3]")).click();
+		driver.findElement(By.xpath("//table[@class='rb-monthTable first last']//tr[3]/td[text()='1']")).click();
+		driver.findElement(By.xpath("//button[@id='search_btn']")).click();
+		System.out.println("Total buses found: " + driver.findElement(By.xpath("//span[@class='w-60 d-block d-found']/span")).getText());
+		driver.findElement(By.xpath("//div[@class='close']/i")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//div[@id='filter-block']//ul[3]/li[2]/label[1]")).click();
+		System.out.println("Total sleeper buses: " + driver.findElement(By.xpath("//span[@class='w-60 d-block d-found']/span")).getText());
+		driver.findElement(By.xpath("//div[@id='filter-block']//ul[3]/li[3]/label[1]")).click();
+		System.out.println("Total [sleeper+ AC] buses: " + driver.findElement(By.xpath("//span[@class='w-60 d-block d-found']/span")).getText());
+		
+	}
+
+}
+
+OUTPUT
+
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 89.0.4389.23 (61b08ee2c50024bab004e48d2b1b083cdbdac579-refs/branch-heads/4389@{#294}) on port 18497
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Mar 27, 2021 9:34:51 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+Total buses found: 124 Buses
+Total sleeper buses: 83 Buses
+Total [sleeper+ AC] buses: 66 Buses
