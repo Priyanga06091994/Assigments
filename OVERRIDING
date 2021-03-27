@@ -1,0 +1,41 @@
+package org.student;
+
+public class Student {
+
+	public void getStudentInfo(int id) 
+	{
+
+		System.out.println("Studen ID : "+id);
+	}
+	public void getStudentInfo(int id, String name) 
+	{
+
+		System.out.println("Student ID : "+id+" and"+" Student Name : "+name);
+	}
+	public void getStudentInfo(String email, long phoneNumber) 
+	{
+
+		System.out.println("Student Email : "+email+" and"+" Student PhoneNumber : "+phoneNumber);
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Student student = new Student();
+		int id = 52;
+		String name = "Priyanga";
+		String email = "xyz@gmail.com";
+		long phoneNumber = 9876543210L;
+		
+student.getStudentInfo(id);
+student.getStudentInfo(id, name);
+student.getStudentInfo(email, phoneNumber);
+	}
+
+}
+
+OUTPUT
+
+Studen ID : 52
+Student ID : 52 and Student Name : Priyanga
+Student Email : xyz@gmail.com and Student PhoneNumber : 9876543210
+
