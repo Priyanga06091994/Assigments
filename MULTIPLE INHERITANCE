@@ -1,0 +1,41 @@
+package week3.day1;
+
+public interface HardWare {
+
+	public void hardwareResources();
+	
+}
+====================================
+package week3.day1;
+
+public interface SoftWare {
+
+	public void softwareResources();
+	
+}
+===================================
+package week3.day1;
+
+public class Desktop extends Abstract {
+	
+ public void desktopModel()
+ {
+	 System.out.println("DESKTOP MODEL : Intel Core2duo");
+ }
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Desktop desktop = new Desktop();
+		desktop.desktopModel();
+		desktop.hardwareResources();
+		desktop.softwareResources();
+
+	}
+
+}
+
+OUTPUT
+
+DESKTOP MODEL : Intel Core2duo
+Hardware resources are of low cost
+Software resources are of high cost
