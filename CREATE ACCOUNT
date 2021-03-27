@@ -1,0 +1,90 @@
+package week2.day1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class CreateAccount {
+
+	public static void main(String[] args) {
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver = new ChromeDriver();
+		driver.get("http://leaftaps.com/opentaps");
+		driver.manage().window().maximize();
+		driver.findElement(By.id("username")).sendKeys("Democsr");
+		driver.findElement(By.id("password")).sendKeys("crmsfa");
+		driver.findElement(By.className("decorativeSubmit")).click();
+		String title = driver.getTitle();
+		System.out.println(title);
+		driver.findElement(By.linkText("CRM/SFA")).click();
+		driver.findElement(By.linkText("Create Account")).click();
+		driver.findElement(By.id("accountName")).sendKeys("Priyanga");
+		driver.findElement(By.id("groupNameLocal")).sendKeys("Priya");
+		driver.findElement(By.id("annualRevenue")).sendKeys("500000");
+		driver.findElement(By.id("sicCode")).sendKeys("1001");
+		
+		WebElement industry = driver.findElement(By.name("industryEnumId"));
+		Select dd1 = new Select(industry);
+		dd1.selectByVisibleText("Computer Software");
+		
+		WebElement owner = driver.findElement(By.name("ownershipEnumId"));
+		Select dd2 = new Select(owner);
+		dd2.selectByValue("OWN_PARTNERSHIP");
+		
+		WebElement source = driver.findElement(By.name("dataSourceId"));
+		Select dd3 = new Select(source);
+		dd3.selectByIndex(4);
+		
+		WebElement initialTeam = driver.findElement(By.name("initialTeamPartyId"));
+		Select dd4 = new Select(initialTeam);
+		dd4.selectByValue("DemoSalesTeam1");
+		
+		driver.findElement(By.name("description")).sendKeys("Account is created.");
+		driver.findElement(By.name("importantNote")).sendKeys("Created account details should not be shared.");
+		driver.findElement(By.name("parentPartyId")).sendKeys("democlass1");
+		driver.findElement(By.id("officeSiteName")).sendKeys("LeafTap");
+		
+		WebElement currency = driver.findElement(By.id("currencyUomId"));
+		Select dd5 = new Select(currency);
+		dd5.selectByVisibleText("INR - Indian Rupee");
+		
+		driver.findElement(By.id("numberEmployees")).sendKeys("40");
+		driver.findElement(By.id("tickerSymbol")).sendKeys("Tick");
+		
+		WebElement marketing = driver.findElement(By.id("marketingCampaignId"));
+		Select dd6 = new Select(marketing);
+		dd6.selectByVisibleText("Car and Driver");
+		
+		driver.findElement(By.id("primaryPhoneCountryCode")).sendKeys("+91");
+		driver.findElement(By.id("primaryPhoneAreaCode")).sendKeys("044");
+		driver.findElement(By.id("primaryPhoneExtension")).sendKeys("4321");
+		driver.findElement(By.id("primaryEmail")).sendKeys("abc@gmail.com");
+		driver.findElement(By.id("primaryPhoneNumber")).sendKeys("9876543210");
+		driver.findElement(By.id("primaryPhoneAskForName")).sendKeys("Priyanga");
+		driver.findElement(By.id("primaryWebUrl")).sendKeys("https://www.testleaf.com");
+		driver.findElement(By.id("generalToName")).sendKeys("Priyanga");
+		driver.findElement(By.id("generalAttnName")).sendKeys("Priya");
+		driver.findElement(By.id("generalAddress1")).sendKeys("2, VGN Street, Parvathy Nagar");
+		driver.findElement(By.id("generalAddress2")).sendKeys("MMD, Mathur");
+		driver.findElement(By.id("generalCity")).sendKeys("Chennai");
+		driver.findElement(By.id("generalPostalCode")).sendKeys("600066");
+		driver.findElement(By.id("generalPostalCodeExt")).sendKeys("66");
+		
+		WebElement country = driver.findElement(By.name("generalCountryGeoId"));
+		Select dd7 = new Select(country);
+		dd7.selectByVisibleText("India");
+		
+		/*Its not working
+		WebElement province = driver.findElement(By.name("generalStateProvinceGeoId"));
+		Select dd8 = new Select(province);
+        dd8.selectByVisibleText("TAMILNADU");*/
+		
+        driver.findElement(By.className("smallSubmit")).click();
+	
+	}
+}
+
