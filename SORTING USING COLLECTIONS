@@ -1,0 +1,36 @@
+package week3.day2;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class SortingUsingCollection {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		List<String> sorting = new ArrayList<String>();
+		sorting.add("HCL");
+		sorting.add("Wipro");
+		sorting.add("Aspire systems");
+		sorting.add("CTS");
+		
+		System.out.println("Size of Array :" +sorting.size());
+		System.out.println("Before sorting :" +sorting);
+		Collections.sort(sorting);
+		
+		System.out.println("After sorting :" +sorting);
+			
+		Collections.reverse(sorting);
+		
+		System.out.println("After sorting and reversing :" +sorting);
+		
+	}
+	}
+
+OUTPUT
+
+Size of Array :4
+Before sorting :[HCL, Wipro, Aspire systems, CTS]
+After sorting :[Aspire systems, CTS, HCL, Wipro]
+After reversing :[Wipro, HCL, CTS, Aspire systems]
