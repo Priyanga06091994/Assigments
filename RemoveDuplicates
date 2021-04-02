@@ -1,0 +1,50 @@
+package week3.day2;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class RemoveDuplicates {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+String input = "PayPal India";
+System.out.println("The given input string is :"+input);
+char[] converted = input.toCharArray();
+
+Set<Character> charSet = new HashSet<Character>();
+Set<Character> dupCharSet = new HashSet<Character>();
+
+for (int i = 0; i < converted.length; i++) {
+	for(int j = i+1; j < converted.length; j++){
+		if(converted[i] == converted[j])
+		{
+			dupCharSet.add(converted[i]);	
+		} else
+		{
+			charSet.add(converted[i]);
+		}
+		
+	}
+}
+	System.out.println("Input string without duplicates :"+charSet);	
+	System.out.println("Duplicates in the input string :"+dupCharSet);
+	
+	String strSet = charSet.toString();
+	String spaceLess = strSet.replace(" ", "");
+	System.out.println("The input string post removing space and duplicates :"+spaceLess);
+	String commaLess = spaceLess.replace(",", "");
+	System.out.println("The input string post removing comma,space and duplicates :"+spaceLess);
+	System.out.println("THE EXPECTED OUTPUT:"+commaLess);
+	}
+}
+
+
+OUTPUT
+
+The given input string is :PayPal India
+Input string without duplicates :[P,  , a, d, y, I, i, l, n]
+Duplicates in the input string :[P, a]
+The input string post removing space and duplicates :[P,,a,d,y,I,i,l,n]
+The input string post removing comma,space and duplicates :[P,,a,d,y,I,i,l,n]
+THE EXPECTED OUTPUT:[PadyIiln]
+
