@@ -1,0 +1,67 @@
+package week3.day2;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class ErailUnique {
+	
+	public static void main(String[] args) {
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver=new ChromeDriver();
+		driver.get("https://erail.in/");
+		driver.manage().window().maximize();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		driver.findElement(By.id("chkSelectDateOnly")).click();
+		WebElement Source = driver.findElement(By.id("txtStationFrom"));
+		Source.clear();
+		Source.sendKeys("Mgr Chennai Ctr"+Keys.ENTER);
+		WebElement To = driver.findElement(By.id("txtStationTo"));
+		To.clear();
+		To.sendKeys("Madurai Jn"+Keys.ENTER);
+		
+		List<String> train= new ArrayList<String>();
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@class='DataTable TrainList TrainListHeader']//td[@style=';']/a")));
+		
+		List<WebElement> trainname = driver.findElementsByXPath("//table[@class='DataTable TrainList TrainListHeader']//td[@style=';']/a");
+		for (WebElement trainlist : trainname) 
+		{
+			String trainlist1 = trainlist.getText();
+			train.add(trainlist1);	
+		}
+		
+		System.out.println(train.size());
+		System.out.println(train);
+	Set<String> alltrain = new HashSet<String>();
+	alltrain.addAll(train);
+	System.out.println(alltrain.size());
+	System.out.println(alltrain);
+	
+	}
+
+}
+
+OUTPUT
+
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 89.0.4389.23 (61b08ee2c50024bab004e48d2b1b083cdbdac579-refs/branch-heads/4389@{#294}) on port 45617
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Apr 02, 2021 10:54:37 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+21
+[TEJAS EXPRESS, MDU FESTIVAL SPL, LTT MDU SF SPL, MS MDU EXP, MS TCN EXPRESS, NZM CAPE SF SPL, NZM MDU SPL, MS QLN EXPRESS, MS CAPE EXP, MS NCJ EXPRESS, TBM NCJ EXP, MS TN EXP, NCJ FESTIVAL SPL, MS TEN EXPRESS, MS QLN EXPRESS, MS MDU SCT EXP, HWH CAPE SPL, MS MDU EXP, MS MDU EXPRESS, MAS MDU AC EXP, TBM NCJ SPL]
+19
+[MS CAPE EXP, TBM NCJ EXP, MS TN EXP, HWH CAPE SPL, MS MDU EXPRESS, MAS MDU AC EXP, TEJAS EXPRESS, NZM CAPE SF SPL, LTT MDU SF SPL, MS NCJ EXPRESS, NZM MDU SPL, TBM NCJ SPL, MS MDU EXP, MS TEN EXPRESS, MDU FESTIVAL SPL, MS TCN EXPRESS, MS QLN EXPRESS, NCJ FESTIVAL SPL, MS MDU SCT EXP]
