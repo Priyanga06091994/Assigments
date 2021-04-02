@@ -1,0 +1,49 @@
+package week3.day2;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class ElementtoAppears {
+
+	public static void main(String[] args) {
+				WebDriverManager.chromedriver().setup();
+				ChromeDriver driver=new ChromeDriver();
+				driver.get("http://www.leafground.com/pages/appear.html");
+				driver.manage().window().maximize();
+				WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+				wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div//button")));
+				List<WebElement> Button = driver.findElements(By.xpath("//div//button"));
+				int size = Button.size();
+				System.out.println(size);
+				if (size==5)
+						{
+					System.out.println("ALL BUTTONS ARE APPEARED!");	
+				} else {
+					System.out.println("ALL BUTTONS ARE NOT DISAPPEARED!");
+				}
+			}
+	}
+  
+OUTPUT
+  
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 89.0.4389.23 (61b08ee2c50024bab004e48d2b1b083cdbdac579-refs/branch-heads/4389@{#294}) on port 9539
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Apr 02, 2021 10:50:44 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+5
+ALL BUTTONS ARE APPEARED!
+
+  
