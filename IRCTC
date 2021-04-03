@@ -1,0 +1,56 @@
+package week4.day1;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Irctc {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
+		driver.get("https://www.irctc.co.in/");
+		driver.findElement(By.xpath("//button[@class='btn btn-primary']")).click();
+		driver.findElement(By.xpath("//a[@href='https://www.air.irctc.co.in']")).click();
+		Set<String> allWindows = driver.getWindowHandles();
+		System.out.println("Open Windows : "+allWindows);
+		System.out.println(driver.getWindowHandle());
+		List<String> newWindows = new ArrayList<String>(allWindows);
+		String secondWindow = newWindows.get(1);
+		driver.switchTo().window(secondWindow);
+		System.out.println(driver.getWindowHandle());
+		System.out.println("CUSTOMER CARE MAIL ID:"+driver.findElement(By.xpath("//a[@href='mailto:flights@irctc.co.in']")).getText());
+		driver.switchTo().window(newWindows.get(0));
+		System.out.println("Current Windows : "+allWindows);
+		System.out.println(driver.getWindowHandle());
+	driver.close();
+}
+	}
+  
+  OUTPUT
+  
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 89.0.4389.23 (61b08ee2c50024bab004e48d2b1b083cdbdac579-refs/branch-heads/4389@{#294}) on port 27190
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Apr 03, 2021 9:31:58 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+Open Windows : [CDwindow-9F896F9B12669BC555CCA556F7FFFFAB, CDwindow-C3C05A63A1670B37085CD5CAF909FCC2]
+CDwindow-9F896F9B12669BC555CCA556F7FFFFAB
+CDwindow-C3C05A63A1670B37085CD5CAF909FCC2
+CUSTOMER CARE MAIL ID:flights@irctc.co.in
+Current Windows : [CDwindow-9F896F9B12669BC555CCA556F7FFFFAB, CDwindow-C3C05A63A1670B37085CD5CAF909FCC2]
+CDwindow-9F896F9B12669BC555CCA556F7FFFFAB
