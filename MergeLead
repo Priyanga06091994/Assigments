@@ -1,0 +1,79 @@
+package week4.day1;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class MergeLead {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver = new ChromeDriver();
+		driver.get("http://leaftaps.com/opentaps");
+		driver.manage().window().maximize();
+		driver.findElement(By.id("username")).sendKeys("DemoSalesManager");
+		driver.findElement(By.id("password")).sendKeys("crmsfa");
+		driver.findElement(By.className("decorativeSubmit")).click();
+		String title = driver.getTitle();
+		System.out.println(title);
+		driver.findElement(By.linkText("CRM/SFA")).click();
+		driver.findElement(By.xpath("//a[@href='/crmsfa/control/leadsMain']")).click();
+		driver.findElement(By.xpath("//a[@href='/crmsfa/control/mergeLeadsForm']")).click();
+		driver.findElement(By.xpath("//img[@alt='Lookup']")).click();
+		Set<String> allWindows = driver.getWindowHandles();
+		System.out.println("Open Windows : "+allWindows);
+		List<String> newWindows = new ArrayList<String>(allWindows);
+		String secondWindow = newWindows.get(1);
+		driver.switchTo().window(secondWindow);
+		System.out.println(driver.getWindowHandle());
+		System.out.println("WINDOW TITLE : "+driver.getTitle());
+		driver.manage().window().maximize();
+		driver.findElement(By.xpath("//input[contains(@class,'x-form-text x-form-field')]")).sendKeys("10199");
+		driver.findElement(By.xpath("//button[@type='button']")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-partyId']//a[1]")).click();
+	    driver.switchTo().window(newWindows.get(0));
+		System.out.println("WINDOWS : "+allWindows);
+		System.out.println(driver.getWindowHandle());
+		System.out.println("CURRENT WINDOW TITLE : "+driver.getTitle());
+		driver.findElement(By.linkText("Merge")).click();
+		driver.switchTo().alert().accept();
+		driver.findElement(By.linkText("Find Leads")).click();
+		driver.findElement(By.name("id")).sendKeys("10099");
+		driver.findElement(By.xpath("//button[text()='Find Leads']")).click();
+		Thread.sleep(3000);
+		System.out.println("EXPECTED MESSAGE: " + driver.findElement(By.xpath("//div[@class='x-paging-info']")).getText());
+		driver.close();
+		
+		
+	}
+
+}
+
+OUTPUT
+
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 89.0.4389.23 (61b08ee2c50024bab004e48d2b1b083cdbdac579-refs/branch-heads/4389@{#294}) on port 39825
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Apr 05, 2021 2:16:45 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+Leaftaps - TestLeaf Automation Platform
+Open Windows : [CDwindow-D43EFCB65EA4A185CD70F1C05175FDC4, CDwindow-B5E19EEB32060D7C6D46CDD27C12EDA6]
+CDwindow-B5E19EEB32060D7C6D46CDD27C12EDA6
+WINDOW TITLE : Find Leads
+[1617612435.089][SEVERE]: Unable to receive message from renderer
+WINDOWS : [CDwindow-D43EFCB65EA4A185CD70F1C05175FDC4, CDwindow-B5E19EEB32060D7C6D46CDD27C12EDA6]
+CDwindow-D43EFCB65EA4A185CD70F1C05175FDC4
+CURRENT WINDOW TITLE : Merge Leads | opentaps CRM
+EXPECTED MESSAGE: No records to display
