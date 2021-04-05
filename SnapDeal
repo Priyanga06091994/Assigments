@@ -1,0 +1,78 @@
+package week4.day1;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.WebDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class SnapDeal {
+
+	public static void main(String[] args) throws InterruptedException, IOException {
+		// TODO Auto-generated method stub
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
+		driver.get("https://www.snapdeal.com/");
+		driver.manage().window().maximize();
+		driver.findElement(By.xpath("//div[@id='leftNavMenuRevamp']/div[1]/div[2]/ul[1]/li[7]/a[1]/span[1]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//span[text()='Sports Shoes']")).click();
+		System.out.println("COUNT OF SPORTS SHOES :"+driver.findElement(By.className("category-count")).getText());
+		driver.findElement(By.xpath("//div[text()='Training Shoes']")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.className("sort-label")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//li[@data-index='1'])[2]")).click();
+		Thread.sleep(3000);
+System.out.println("VERIFIED SORTING ORDER : "+driver.findElement(By.xpath("//div[text()[normalize-space()='Price Low To High']]")).getText());
+Thread.sleep(3000);
+driver.findElement(By.xpath("//button[contains(@class,'view-more-button btn')]")).click();
+driver.findElement(By.linkText("Puma")).click();
+Thread.sleep(3000);
+driver.findElement(By.xpath("//div[text()='APPLY']")).click();
+//driver.findElement(By.xpath("(//p[@class='product-title'])[2]")).click();
+Thread.sleep(3000);
+WebElement pumaShoes = driver.findElement(By.xpath("(//p[@class='product-title'])[2]"));
+Actions builder = new Actions(driver);
+builder.moveToElement(pumaShoes).pause(Duration.ofSeconds(5)).perform();
+driver.findElement(By.xpath("(//div[contains(@class,'center quick-view-bar')])[2]")).click();
+System.out.println("PRICE OF SHOES : "+driver.findElement(By.xpath("//span[text()='2,799 ']")).getText());
+	System.out.println("OFFER FOR SHOES : "+driver.findElement(By.xpath("//span[text()='30% Off']")).getText());
+	TakesScreenshot file =((TakesScreenshot)driver);
+	File source = file.getScreenshotAs(OutputType.FILE);
+	File destination = new File("filepath/screenshot_"+".png");
+	FileUtils.copyFile(source, destination);
+	driver.findElement(By.xpath("(//i[@class='sd-icon sd-icon-delete-sign'])[3]")).click();
+driver.quit();
+	}
+
+}
+
+OUTPUT
+
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 89.0.4389.23 (61b08ee2c50024bab004e48d2b1b083cdbdac579-refs/branch-heads/4389@{#294}) on port 21688
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Apr 05, 2021 7:15:06 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+COUNT OF SPORTS SHOES :( 4364 Items)
+VERIFIED SORTING ORDER : Price Low To High
+PRICE OF SHOES : 2,799 
+OFFER FOR SHOES : 30% OFF
+
