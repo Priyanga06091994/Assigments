@@ -1,0 +1,171 @@
+package week4.day2;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Nykaa {
+
+	public static void main(String[] args) throws InterruptedException  {
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeOptions options= new ChromeOptions();
+		options.addArguments("--disable-notifications");
+		ChromeDriver driver= new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		driver.get("https://www.nykaa.com/");
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//input[@placeholder='Search products, brands etc']")).sendKeys("perfumes",Keys.ENTER);
+		Thread.sleep(3000);
+		String total = driver.findElement(By.xpath("//div[text()='Showing ']")).getText();
+		System.out.println("Total Perfumes : "+total);
+		Thread.sleep(3000);
+		List<WebElement> perfumeName= driver.findElements(By.xpath("//div[contains(@class,'m-content__product-list__title')]"));
+	System.out.println("Number of Perfumes : "+perfumeName.size());
+	for (int i = 0; i< perfumeName.size();i++)
+	{
+		
+		String name = perfumeName.get(i).getText();
+		System.out.println(i+1+")"+" "+name);
+	}
+	System.out.println("**************************************************************");
+	Thread.sleep(3000);
+	List<WebElement> perfumePrice= driver.findElements(By.xpath("//div[contains(@class,'m-content__product-list__price')]"));
+	System.out.println("Number of Perfumes : "+perfumePrice.size());
+	for (int i = 0; i< perfumePrice.size();i++)
+	{
+		
+		String price = perfumePrice.get(i).getText();
+		System.out.println(i+1+")"+" "+price);
+	}
+	System.out.println("**************************************************************");
+	Thread.sleep(3000);
+	driver.findElement(By.xpath("//img[@alt='BVLGARI Rose Goldea Blossom Delight Eau De Parfum']")).click();
+	Set<String> allWindows = driver.getWindowHandles();
+	System.out.println("Open Windows : "+allWindows);
+	List<String> newWindows = new ArrayList<String>(allWindows);
+	String secondWindow = newWindows.get(1);
+	driver.switchTo().window(secondWindow);
+	Thread.sleep(3000);
+	driver.findElement(By.xpath("//button[contains(@class,'combo-add-to-btn prdt-des-btn')]")).click();
+	Thread.sleep(3000);
+	String itemAddedTo = driver.findElement(By.className("add-to-bag-message")).getText();
+	System.out.println(itemAddedTo);
+	Thread.sleep(3000);
+	driver.findElement(By.xpath("//div[@class='cursor-hand arrowup-tooltip']//div[1]")).click();
+	Thread.sleep(3000);
+	String  grandTotal = driver.findElement(By.xpath("(//div[text()='5800'])[3]")).getText();
+	System.out.println("Grand Total : "+grandTotal);
+	Thread.sleep(3000);
+	driver.findElement(By.xpath("//button[@type='button']//span[1]")).click();
+	Thread.sleep(3000);
+	driver.findElement(By.xpath("(//button[contains(@class,'btn full')])[2]")).click();
+	//Thread.sleep(3000);
+	//driver.findElement(By.xpath("//input[@value='India']")).clear();
+	//driver.findElement(By.xpath("//input[@value='India']")).sendKeys("india");
+	Thread.sleep(3000);
+	driver.findElement(By.xpath("//input[@class='input-element  ']")).sendKeys("abcde",Keys.TAB);
+	Thread.sleep(3000);
+	driver.findElement(By.xpath("//input[@placeholder='email']")).sendKeys("priya@gmail.com");
+	Thread.sleep(3000);
+	driver.findElement(By.xpath("//input[@type='tel']")).sendKeys("9879625421");
+	Thread.sleep(3000);
+	driver.findElement(By.xpath("//input[@placeholder='PinCode']")).sendKeys("600118");
+	Thread.sleep(3000);
+	driver.findElement(By.xpath("//legend[text()='Address']/following-sibling::textarea")).sendKeys(" No .2, Vasugi Park, Thiruvanmiyur");
+	Thread.sleep(3000);
+	driver.findElement(By.xpath("//button[@type='submit']")).click();
+	Thread.sleep(3000);
+	driver.findElement(By.xpath("//button[@type='submit']//span[1]")).click();
+	Thread.sleep(3000);
+	String cardNumber = driver.findElement(By.xpath("//span[text()='This field is required.']")).getText();
+	System.out.println("Card Number : "+cardNumber);
+	String expiry = driver.findElement(By.xpath("//span[text()='Required']")).getText();
+	System.out.println("Expiry : "+expiry);
+	String cvv = driver.findElement(By.xpath("(//span[text()='Required'])[2]")).getText();
+	System.out.println("CVV : "+cvv);
+	driver.quit();
+	
+	}
+
+}
+
+OUTPUT
+
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 89.0.4389.23 (61b08ee2c50024bab004e48d2b1b083cdbdac579-refs/branch-heads/4389@{#294}) on port 36578
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Apr 14, 2021 5:35:51 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+Total Perfumes : Showing 20 of 2792  results for 'perfumes'
+Number of Perfumes : 20
+1) Nykaa Love Struck Perfume
+2) BVLGARI Rose Goldea Blossom Delight Eau De Parfum
+3) Moi By Nykaa Mini Pocket Perfume
+4) Ramsons You are lovely Eau De Perfume
+5) Moi By Nykaa Eau de Perfume
+6) Skinn By Titan Celeste Perfume For Women EDP
+7) Skinn by Titan Celeste Perfume For Women EDP
+8) Skinn By Titan Raw Perfume For Men EDP
+9) The Body Shop British Rose Eau De Toilette
+10) Masaba By Nykaa Perfume
+11) Davidoff Cool Water Eau De Toilette For Men
+12) Estee Lauder Modern Muse Eau De Parfum
+13) Engage W2 Perfume Spray For Women
+14) Nykaa Cosmetics Masaba By Nykaa Mini Pocket Perfume
+15) Skinn by Titan Celeste Perfume For Women EDP
+16) Davidoff Cool Water Eau De Toilette for Men
+17) Moi By Nykaa Mini Pocket Perfume - Raison D'Etre
+18) Skinn by Titan Celeste Perfume For Women EDP
+19) Nykaa Fragrance Mini Bar Combo
+20) Ramsons Laopale Eau De Perfume
+**************************************************************
+Number of Perfumes : 20
+1) MRP:?699
+2) MRP:?5800
+3) MRP:?249?212 15% off
+4) MRP:?145?94 35% off
+5) MRP:?1800?1170 35% off
+6) MRP:?1595
+7) MRP:?595?536 10% off
+8) MRP:?1595
+9) MRP:?1295?1036 20% off
+10) MRP:?1800?1170 35% off
+11) MRP:?3600
+12) MRP:?5500
+13) MRP:?210?172 18% off
+14) MRP:?299?254 15% off
+15) MRP:?2195
+16) MRP:?4600
+17) MRP:?249
+18) MRP:?1595
+19) MRP:?996?847 15% off
+20) MRP:?145?94 35% off
+**************************************************************
+Open Windows : [CDwindow-9F42FFB0DB018256DDD84615810EFF34, CDwindow-708F448373F38655BC634A41DBB77DE9]
+Item added to cart
+View Bag
+Grand Total : ?5800
+Card Number : THIS FIELD IS REQUIRED.
+Expiry : REQUIRED
+CVV : REQUIRED
