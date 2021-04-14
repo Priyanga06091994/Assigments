@@ -1,0 +1,124 @@
+package week4.day2;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Ajio {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver = new ChromeDriver();
+		driver.get("https://www.ajio.com/shop/sale");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
+		Thread.sleep(3000);
+		driver.findElement(By.tagName("input")).sendKeys("bags",Keys.ENTER);
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//label[@for='Women']")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.className("five-grid")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//div[@id='products']/div[3]/div[1]/div[3]/div[1]/select[1]")).sendKeys(Keys.DOWN,Keys.DOWN,Keys.DOWN,Keys.ENTER);
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//span[text()='price']")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//label[@for='Rs.2001-2500']")).click();
+		String rs = driver.findElement(By.xpath("//label[@for='Rs.2001-2500']")).getText();
+		System.out.println("Sorted Price : "+rs);
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//img[@alt='CERIZ Burgundy Satchel Bag with Detachable Strap']")).click();
+		Set<String> allWindows = driver.getWindowHandles();
+		System.out.println("Open Windows : "+allWindows);
+		List<String> newWindows = new ArrayList<String>(allWindows);
+		String secondWindow = newWindows.get(1);
+		driver.switchTo().window(secondWindow);
+		String rs1 = driver.findElement(By.xpath("//div[text()='Rs. 2,499']")).getText();
+		System.out.println("Bag Cost : "+rs1);
+		Thread.sleep(3000);
+		String str = driver.findElement(By.xpath("//div[@id='appContainer']/div[2]/div[1]/div[1]/div[2]/div[1]/div[3]/div[1]/div[4]/div[1]/div[1]")).getText();
+		System.out.println("Coupon : "+ str);
+		Thread.sleep(3000);
+		String extraUpto = driver.findElement(By.xpath("//div[@class='promo-discounted-price']/following-sibling::div[1]")).getText();
+		System.out.println("Discount Percentage : "+extraUpto);
+		Thread.sleep(3000);
+		String str1  = driver.findElement(By.className("promo-discounted-price")).getText();
+		System.out.println("Discount Price : "+str1);
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//span[text()='Enter Pin-code To Know Estimated Delivery Date']")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//span[text()='Enter Pincode']/following::input")).sendKeys("560043");
+		Thread.sleep(3000);
+		driver.findElement(By.className("edd-pincode-modal-submit-btn")).click();
+		Thread.sleep(3000);
+		String apr = driver.findElement(By.xpath("//span[text()='26 Apr']")).getText();
+		System.out.println("Expected Delivery Date : "+apr);
+		driver.findElement(By.xpath("//div[text()='Other information']")).click();
+		Thread.sleep(3000);
+		String aJIOCoReliance = driver.findElement(By.xpath("//div[text()='AJIO, c/o Reliance Retail Limited, SS Plaza, 74/2 Outer Ring Road, 29th Main Road, BTM 1st Stage, BTM Layout, Bangalore 560068, Karnataka, INDIA. Ph. 1800-889-9991. E-mail - customercare@ajio.com']")).getText();
+		System.out.println("Customer Care Details : "+aJIOCoReliance);
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//span[text()='ADD TO BAG']")).click();
+		Thread.sleep(3000);
+		String thirdWindow = newWindows.get(1);
+		driver.switchTo().window(thirdWindow);
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//div[@class='popup-blk cart-blk']//div")).click();
+		String rs2 = driver.findElement(By.xpath("(//span[text()='Rs. 2,499.00'])[2]")).getText();
+		System.out.println("Order Total : "+rs2);
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//input[contains(@id,'couponCodeInput')]")).sendKeys("GRAB");
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[text()='Apply']")).click();
+		String rs3 = driver.findElement(By.xpath("//div[text()='Rs. 2,124.15']")).getText();
+		String rs4 = driver.findElement(By.xpath("//span[text()='Rs. 2,124.15']")).getText();
+		if(rs3 == rs4)
+		{
+			System.out.println("Discount Price & Bill Amount matches");
+		}
+		else
+		{
+			System.out.println("Please verify again. Bill amount does not match discount price");
+		}
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//span[@class='ic-delete navigation-icon']")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//div[text()='Delete']")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//div[text()='DELETE']")).click();
+		driver.quit();
+	}
+
+}
+
+OUTPUT
+
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 89.0.4389.23 (61b08ee2c50024bab004e48d2b1b083cdbdac579-refs/branch-heads/4389@{#294}) on port 7694
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Apr 14, 2021 10:25:09 AM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+Sorted Price : Rs.2001-2500 (378)
+Open Windows : [CDwindow-6DA8BA519167468701892E6609826C67, CDwindow-2519667CC3E133E0C3D4875650CF51F7]
+Bag Cost : Rs. 2,499
+Coupon : 
+Discount Percentage : Extra Upto 35% Off on ?2290 and Above. View Products>
+Discount Price : Get it for ?2124
+Expected Delivery Date : 26 Apr
+Customer Care Details : AJIO, c/o Reliance Retail Limited, SS Plaza, 74/2 Outer Ring Road, 29th Main Road, BTM 1st Stage, BTM Layout, Bangalore 560068, Karnataka, INDIA. Ph. 1800-889-9991. E-mail - customercare@ajio.com
+Order Total : Rs. 2,499.00
+Please verify again. Bill amount does not match discount price
