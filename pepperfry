@@ -1,0 +1,105 @@
+package week4.day2;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Pepperfry {
+
+	public static void main(String[] args) throws InterruptedException, IOException {
+		WebDriverManager.chromedriver().setup();
+		ChromeOptions options= new ChromeOptions();
+		options.addArguments("--disable-notifications");
+		ChromeDriver driver= new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		driver.get("https://www.pepperfry.com/");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@id='reg_login_box']//a[@class='popup-close'])[1]")));
+		driver.findElement(By.xpath("(//div[@id='reg_login_box']//a[@class='popup-close'])[1]")).click();
+		driver.switchTo().frame("webklipper-publisher-widget-container-notification-frame");
+		driver.findElement(By.id("webklipper-publisher-widget-container-notification-close-div")).click();
+		driver.switchTo().defaultContent();
+		Actions a = new Actions(driver);
+		WebElement furniture= driver.findElement(By.xpath("//div[@id='menu_wrapper']//a[text()='Furniture']"));
+		a.moveToElement(furniture).build().perform();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//a[text()='Office Chairs']")).click();
+		WebElement executiveChair = driver.findElement(By.xpath("//ul[@class='clip-main-cat-wrpr pf-center pf-padding-0 pf"
+				+ "-margin-10 clip-main-wrap-cat center-xs']//img[@alt='Executive Chairs']"));
+		a.click(executiveChair).build().perform();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//ul[@class='clip__filter-dimension']//div[@class='clip__filter-dimension-input-holder']/input[@type='number'])[1]")).clear();
+		driver.findElement(By.xpath("(//ul[@class='clip__filter-dimension']//div[@class='clip__filter-dimension-input-holder']/input[@type='number'])[1]")).sendKeys("50");
+		driver.switchTo().frame("webklipper-publisher-widget-container-notification-frame");
+		driver.findElement(By.xpath("//span[@class='wewidgeticon we_close icon-large']")).click();
+		driver.switchTo().defaultContent();
+		WebElement glaician = driver.findElement(By.xpath("//a[@data-productname='Galician High Back Executive Chair in Black Colour']"));
+		JavascriptExecutor javascript = (JavascriptExecutor) driver;
+		javascript.executeScript("arguments[0].click();", glaician);
+		WebElement bedRoom= driver.findElement(By.xpath("//a[text()='Bedroom']"));
+		Thread.sleep(3000);
+		a.moveToElement(bedRoom).perform();
+		Thread.sleep(3000);
+		driver.findElement(By.linkText("Study Tables")).click();
+		WebElement spaceWood=driver.findElement(By.xpath("//input[@id='brandsnameSpacewood']/../input"));
+		Thread.sleep(3000);
+		javascript.executeScript("arguments[0].click();", spaceWood);
+		WebElement price= driver.findElement(By.xpath("//input[@id='price7000-8000']"));
+		javascript.executeScript("arguments[0].click();", price);
+		WebElement sosCarter=driver.findElement(By.xpath("//a[@data-productname='SOS Carter Study Table in Lorraine walnut & silver grey Finish']"));
+		javascript.executeScript("arguments[0].click();", sosCarter);
+		WebElement totalItems=driver.findElement(By.xpath("(//span[@class='header-nav-cnt count_alert'])[1]"));
+		Thread.sleep(3000);
+	    System.out.println("Number of items present in the wishlist: " +totalItems.getText());
+	    WebElement navigateToWishlist=driver.findElement(By.xpath("//a[@class='wishlist_bar']"));
+	    Thread.sleep(3000);
+	    navigateToWishlist.click();
+	    driver.findElement(By.xpath("(//div[@class='mini_cart capitalize active']//div[@class='item_details_holder']//a[@data-tooltip='Add to Cart'])[1]")).click();
+	    driver.findElement(By.xpath("//a[text()='Proceed to pay securely ']")).click();
+	    try
+	    {
+	    driver.findElement(By.xpath("//input[@id='pin_code']")).sendKeys("600028");
+	    }
+	    catch(StaleElementReferenceException e)
+	    {
+	    	driver.findElement(By.xpath("//input[@id='pin_code']"));
+	    }
+	    driver.findElement(By.xpath("//input[@id='pin_check']")).click();
+	    driver.findElement(By.xpath("(//a[text()='PLACE ORDER'])[1]")).click();
+	    File source= driver.getScreenshotAs(OutputType.FILE);
+	    File destination= new File("Pepperfry order amount.png");
+	    FileUtils.copyFile(source, destination);
+	    driver.close();
+	    
+	}
+
+}
+
+OUTPUT
+
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 89.0.4389.23 (61b08ee2c50024bab004e48d2b1b083cdbdac579-refs/branch-heads/4389@{#294}) on port 33359
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Apr 14, 2021 12:34:17 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+Number of items present in the wishlist: 2
