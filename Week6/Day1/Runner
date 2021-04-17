@@ -1,54 +1,58 @@
-package cucumber.Steps;
+package cucumber.Runner;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeDriver;
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class LoginSample {
+@CucumberOptions(features = "src/test/java/cucumber/Features/Login.feature", glue = "cucumber.Steps", monochrome = true)
+public class RunnerClass extends AbstractTestNGCucumberTests {
 
-	public ChromeDriver driver;
 	
-	@Given("open the Chrome browser")
-	public void openBrowser()
-	{
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
-	}
-	@Given("Load the URL")
-	public void loadUrl()
-	{
-		driver.get("http://leaftaps.com/opentaps/");
-	}
-	@Given("provide the Username")
-	public void provideUsername()
-	{
-		driver.findElement(By.id("username")).sendKeys("DemoSalesManager");
-	}
-	@Given("provide the Password")
-	public void providePassword()
-	{
-		driver.findElement(By.id("password")).sendKeys("crmsfa");
-	}
-	@When("click on the Login button")
-	public void clickLogin()
-	{
-		driver.findElement(By.className("decorativeSubmit")).click();
-	}
-	@Then("Homepage should be visible")
-	public void verifyHomePage()
-	{
-		System.out.println("Homepage is available");
-	}
+	
 	
 }
-	
-
-****************************************************************************************
 
 OUTPUT
 
+[RemoteTestNG] detected TestNG version 7.3.0
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 89.0.4389.23 (61b08ee2c50024bab004e48d2b1b083cdbdac579-refs/branch-heads/4389@{#294}) on port 10717
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Apr 17, 2021 6:26:29 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+Apr 17, 2021 6:26:30 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find an exact match for CDP version 89, so returning the closest version found: 86
+Apr 17, 2021 6:26:30 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+INFO: Found CDP implementation for version 89 of 86
+Homepage is available
+???????????????????????????????????????????????????????????????????????????????
+? Share your Cucumber Report with your team at https://reports.cucumber.io    ?
+? Activate publishing with one of the following:                              ?
+?                                                                             ?
+? src/test/resources/cucumber.properties:    cucumber.publish.enabled=true    ?
+? Environment variable:                      CUCUMBER_PUBLISH_ENABLED=true    ?
+? JUnit:                                     @CucumberOptions(publish = true) ?
+?                                                                             ?
+? More information at https://reports.cucumber.io/docs/cucumber-jvm           ?
+?                                                                             ?
+? To disable this message, add cucumber.publish.quiet=true to                 ?
+? src/test/resources/cucumber.properties                                      ?
+???????????????????????????????????????????????????????????????????????????????
+PASSED: runScenario("TC-1_Login with positive credential", "Optional[Login functionality for LeafTaps]")
+        Runs Cucumber Scenarios
+
+===============================================
+    Default test
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
 
