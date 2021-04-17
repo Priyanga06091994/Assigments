@@ -1,0 +1,11 @@
+Feature: Login functionality for LeafTaps
+
+Scenario: TC-1_Login with positive credential
+
+Given open the Chrome browser
+And Load the URL
+And provide the Username
+And provide the Password
+When click on the Login button
+Then Homepage should be visible
+
